@@ -1,0 +1,359 @@
+#!/usr/bin/python3
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+import sys
+import os
+import math
+
+class Window(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Калькулятор")
+        self.setFixedSize(260, 354)
+        self.UiComponents()
+        self.show()
+
+    def UiComponents(self):
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        i1 = os.path.join(current_dir, 'images/clear.svg')
+        i2 = os.path.join(current_dir, 'images/about.svg')
+        self.label = QLabel(self)
+        self.label.setGeometry(0, 10, 260, 80)
+        self.label.setWordWrap(True)
+        self.label.setStyleSheet("QLabel"
+                                "{"
+                                "border : 0.1px solid black;"
+                                "background : rgb(230, 230, 230);"
+                                "}")
+
+        self.label.setAlignment(Qt.AlignRight)
+        self.label.setFont(QFont('Cantarell', 15))
+
+        push1 = QPushButton("1", self)
+        push1.setGeometry(5, 135, 50, 50)
+        push1.setFlat(True)
+        push1.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push1.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push1.setShortcut("1")
+
+        push2 = QPushButton("2", self)
+        push2.setGeometry(65, 135, 50, 50)
+        push2.setFlat(True)
+        push2.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push2.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push2.setShortcut("2")
+
+        push3 = QPushButton("3", self)
+        push3.setGeometry(125, 135, 50, 50)
+        push3.setFlat(True)
+        push3.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push3.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push3.setShortcut("3")
+
+        push4 = QPushButton("4", self)
+        push4.setGeometry(5, 190, 50, 50)
+        push4.setFlat(True)
+        push4.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push4.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push4.setShortcut("4")
+
+        push5 = QPushButton("5", self)
+        push5.setGeometry(65, 190, 50, 50)
+        push5.setFlat(True)
+        push5.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push5.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push5.setShortcut("5")
+
+        push6 = QPushButton("6", self)
+        push6.setGeometry(125, 190, 50, 50)
+        push6.setFlat(True)
+        push6.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push6.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push6.setShortcut("6")
+
+        push7 = QPushButton("7", self)
+        push7.setGeometry(5, 245, 50, 50)
+        push7.setFlat(True)
+        push7.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push7.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push7.setShortcut("7")
+
+        push8 = QPushButton("8", self)
+        push8.setGeometry(65, 245, 50, 50)
+        push8.setFlat(True)
+        push8.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push8.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push8.setShortcut("8")
+
+        push9 = QPushButton("9", self)
+        push9.setGeometry(125, 245, 50, 50)
+        push9.setFlat(True)
+        push9.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push9.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push9.setShortcut("9")
+
+        push0 = QPushButton("0", self)
+        push0.setGeometry(5, 300, 50, 50)
+        push0.setFlat(True)
+        push0.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push0.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push0.setShortcut("0")
+
+        push_equal = QPushButton("=", self)
+        push_equal.setGeometry(185, 300, 70, 50)
+        push_equal.setFlat(True)
+        push_equal.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_equal.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_equal.setShortcut("Space")
+
+        push_plus = QPushButton("+", self)
+        push_plus.setGeometry(185, 245, 70, 50)
+        push_plus.setFlat(True)
+        push_plus.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_plus.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_plus.setShortcut("+")
+
+        push_minus = QPushButton("-", self)
+        push_minus.setGeometry(185, 190, 70, 50)
+        push_minus.setFlat(True)
+        push_minus.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_minus.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_minus.setShortcut("-")
+
+        push_mul = QPushButton("*", self)
+        push_mul.setGeometry(185, 135, 70, 50)
+        push_mul.setFlat(True)
+        push_mul.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_mul.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_mul.setShortcut("*")
+
+        push_div = QPushButton("/", self)
+        push_div.setGeometry(125, 300, 50, 50)
+        push_div.setFlat(True)
+        push_div.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_div.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_div.setShortcut("/")
+
+        push_point = QPushButton(".", self)
+        push_point.setGeometry(65, 300, 50, 50)
+        push_point.setFlat(True)
+        push_point.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_point.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_point.setShortcut(".")
+
+        push_percent = QPushButton("%", self)
+        push_percent.setGeometry(65, 100, 50, 30)
+        push_percent.setFlat(True)
+        push_percent.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_percent.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_percent.setShortcut("%")
+
+        push_clear = QPushButton("C", self)
+        push_clear.setGeometry(125, 100, 50, 30)
+        push_clear.setFlat(True)
+        push_clear.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_clear.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_clear.setShortcut("Delete")
+
+        push_del = QPushButton("", self)
+        push_del.setGeometry(185, 100, 70, 30)
+        push_del.setFlat(True)
+        push_del.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_del.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_del.setIcon(QtGui.QIcon(i1))
+        push_del.setIconSize(QtCore.QSize(16,16))
+        push_del.setShortcut("Backspace")
+
+        push_about = QPushButton("", self)
+        push_about.setGeometry(5, 100, 50, 30)
+        push_about.setFlat(True)
+        push_about.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        push_about.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        push_about.setIcon(QtGui.QIcon(i2))
+        push_about.setIconSize(QtCore.QSize(16,16))
+        push_about.setShortcut("F1")
+
+        push_minus.clicked.connect(self.action_minus)
+        push_equal.clicked.connect(self.action_equal)
+        push0.clicked.connect(self.action0)
+        push1.clicked.connect(self.action1)
+        push2.clicked.connect(self.action2)
+        push3.clicked.connect(self.action3)
+        push4.clicked.connect(self.action4)
+        push5.clicked.connect(self.action5)
+        push6.clicked.connect(self.action6)
+        push7.clicked.connect(self.action7)
+        push8.clicked.connect(self.action8)
+        push9.clicked.connect(self.action9)
+        push_div.clicked.connect(self.action_div)
+        push_mul.clicked.connect(self.action_mul)
+        push_plus.clicked.connect(self.action_plus)
+        push_percent.clicked.connect(self.action_percent1)
+        push_point.clicked.connect(self.action_point)
+        push_clear.clicked.connect(self.action_clear)
+        push_del.clicked.connect(self.action_del)
+        push_about.clicked.connect(self.about1)
+
+    def about1(self):
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        i1 = os.path.join(current_dir, 'images/calc.png')
+        about = QMainWindow(self)
+        about.setWindowTitle("О программе")
+        about.setWindowIcon(QIcon(i1))
+        about.setFixedSize(345, 340)
+        label = QLabel(about)
+        label.setText("<br><b>Калькулятор для Elyzion</b><br>")
+        label.setStyleSheet("color: black; font-size: 20px; font-family: Cantarell;")
+        label.setGeometry(55, 130, 580, 60)
+        label2 = QLabel(about)
+        label2.setText("<br>v.0.3<br>Авторы: <br>Игнатьев Илья <br> <a href='https://pj-crystal.github.io/'>Crystal Project©</a> 2023-2024г.")
+        label2.setStyleSheet("color: black; font-size: 15px; font-family: Cantarell; qproperty-alignment: 'AlignCenter'")
+        label2.setGeometry(70, 165, 200, 100)
+        label2.setOpenExternalLinks(True)
+        pixmap = QPixmap(i1)
+        icon = QLabel(about)
+        icon.setPixmap(pixmap)
+        icon.setGeometry(100, 10, 140, 140)
+        ok_button = QPushButton('ОК', about)
+        ok_button.setGeometry(110, 280, 120, 32)
+        ok_button.clicked.connect(about.close)
+        ok_button.setFlat(True)
+        ok_button.setFont(QtGui.QFont("Cantarell", 10, QtGui.QFont.Bold))
+        ok_button.setStyleSheet("QPushButton { background-color: rgb(230, 230, 230); border: 0.01px solid; border-radius: 5px; } QPushButton:pressed { background-color: #C2C2C2; }")
+        about.show()
+
+    def action_equal(self):
+        equation = self.label.text()
+        try:
+            if "%" in equation and equation.split(" - "):
+                parts = equation.split(" - ")
+                base_value = float(parts[0])
+                percentage = float(parts[1].replace("%", "")) / 100
+                ans = base_value - (base_value * percentage)
+
+            else:
+                ans = eval(equation)
+            self.label.setText(str(ans))
+        except:
+            self.label.setText("")
+
+    def action_percent1(self):
+        equation = self.label.text()
+        operators = ['+', '-', '*', '/']
+        for op in operators:
+            parts = equation.split(op)
+            if len(parts) == 2:
+                base_value = float(parts[0])
+                percentage = float(parts[1].replace("%", ""))
+                if op == '+':
+                    result = base_value * (1 + percentage / 100)
+                elif op == '-':
+                    result = base_value * (1 - percentage / 100)
+                elif op == '*':
+                    result = base_value * (percentage / 100)
+                elif op == '/':
+                    if percentage == 0:
+                        self.label.setText("Error")
+                        return
+                    result = base_value / (1 - percentage / 100)
+                result = round(result, 10)
+                if math.isclose(result, round(result)):
+                    result = round(result)
+                self.label.setText(str(result))
+                return 
+
+    def action_plus(self):
+        text = self.label.text()
+        self.label.setText(text + " + ")
+
+    def action_minus(self):
+        text = self.label.text()
+        self.label.setText(text + " - ")
+    
+    def action_percent(self):
+        text = self.label.text()
+        self.label.setText(text + "%")
+
+    def action_div(self):
+        text = self.label.text()
+        self.label.setText(text + " / ")
+
+    def action_mul(self):
+        text = self.label.text()
+        self.label.setText(text + " * ")
+
+    def action_point(self):
+        text = self.label.text()
+        self.label.setText(text + ".")
+
+    def action0(self):
+        text = self.label.text()
+        self.label.setText(text + "0")
+
+    def action1(self):
+        text = self.label.text()
+        self.label.setText(text + "1")
+
+    def action2(self):
+        text = self.label.text()
+        self.label.setText(text + "2")
+
+    def action3(self):
+        text = self.label.text()
+        self.label.setText(text + "3")
+
+    def action4(self):
+        text = self.label.text()
+        self.label.setText(text + "4")
+
+    def action5(self):
+        text = self.label.text()
+        self.label.setText(text + "5")
+
+    def action6(self):
+        text = self.label.text()
+        self.label.setText(text + "6")
+
+    def action7(self):
+        text = self.label.text()
+        self.label.setText(text + "7")
+
+    def action8(self):
+        text = self.label.text()
+        self.label.setText(text + "8")
+
+    def action9(self):
+        text = self.label.text()
+        self.label.setText(text + "9")
+
+    def action_clear(self):
+        self.label.setText("")
+
+    def action_del(self):
+        text = self.label.text()
+        print(text[:len(text)-1])
+        self.label.setText(text[:len(text)-1])
+
+
+app = QApplication(sys.argv)
+app.setStyle("Fusion")
+palette = QPalette()
+palette.setColor(QPalette.Window, QColor(250, 250, 250))
+palette.setColor(QPalette.WindowText, Qt.black)
+palette.setColor(QPalette.Base, QColor(250, 250, 250))
+palette.setColor(QPalette.AlternateBase, QColor(250, 250, 250))
+palette.setColor(QPalette.ToolTipBase, Qt.black)
+palette.setColor(QPalette.ToolTipText, Qt.black)
+palette.setColor(QPalette.Text, Qt.black)
+palette.setColor(QPalette.Button, QColor(230, 230, 230))
+palette.setColor(QPalette.ButtonText, Qt.black)
+palette.setColor(QPalette.BrightText, Qt.red)
+palette.setColor(QPalette.Link, QColor(0, 125, 0))
+palette.setColor(QPalette.Highlight, QColor(255, 255 ,255))
+palette.setColor(QPalette.HighlightedText, Qt.black)
+app.setPalette(palette)
+app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
+window = Window()
+sys.exit(app.exec())
